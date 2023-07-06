@@ -1,0 +1,67 @@
+/*-*-sql-*-*******************************************************************
+ * sa.engine
+ *
+ * Author: ????
+ *
+ * Description: Master file for Microchip simple demo
+ *
+ ****************************************************************************/
+
+/* Start the Name Server - riquired when using with VSC */
+start_nameserver("ns");
+
+/*Simple 1+1, the hello world of edge computing */
+edge_cq("edge1","1+1");
+
+/*Get a stream of sensor readings */
+/*The sensors are defined by the user in function 
+float get_sensor_sample(int sensortype) in the MPLAB project*/
+/* In this example */
+/*Sensor 0 is the Iq*/
+/*Sensor 1 is the n*/
+
+//plot: Line plot
+edge_cq("edge1","sensor:stream([0])"); //quadaxis
+
+//plot: Line plot
+edge_cq("edge1","sensor:stream([1])"); //speed
+
+//use winagg 
+//plot: Line plot
+edge_cq("edge1","winagg(sensor:stream([0]),10,10)"); //quadaxis
+
+//plot: Line plot
+edge_cq("edge1","winagg(sensor:stream([1]),10,10)"); //speed
+
+
+/*Create a window over the signals and apply some statistical functions*/
+//plot: Line plot
+edge_cq("edge1","select [mean(t[1]),stdev(t[1]), mean(t[2]),stdev(t[2])]
+  from Matrix m, Matrix t
+ where m in winagg(sensor:stream([0,1]),400,100)
+    and t = transpose(m)");
+
+/*Create a window over the signals and apply some statistical functions*/
+//plot: Line plot
+edge_cq("edge1","select [stdev(t[1])*100, stdev(t[2])]
+  from Matrix m, Matrix t
+ where m in winagg(sensor:stream([0,1]),100,10)
+    and t = transpose(m)");
+
+
+//plot: Line plot
+edge_cq("edge1","select [((dev_speed)*(dev_Iq)*500),status]
+  from Matrix m, Matrix t, real mini_Iq, real maxi_Iq, real mean_Iq, real dev_Iq, real mini_speed,real maxi_speed, real mean_speed, real dev_speed, integer status
+ where m in winagg(sensor:stream([0,1]),400,200)
+   and t = transpose(m)
+   and mini_Iq=min(t[1])
+   and maxi_Iq=max(t[1])
+   and mean_Iq=mean(t[1])
+   and dev_Iq=stdev(t[1])
+   and mini_speed=min(t[2])
+   and maxi_speed=max(t[2])
+   and mean_speed=mean(t[2])
+   and dev_speed=stdev(t[2])
+   and status = case when ((dev_speed)*(dev_Iq)*500) > 9 then 10
+              else 0 end");             
+              

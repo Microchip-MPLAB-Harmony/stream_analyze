@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Package name="replaceme">
+<Package name="x2c">
     <Dependencies>
+        <Dependency name="csp" version="v3.17.0"/>
     </Dependencies>
 </Package>

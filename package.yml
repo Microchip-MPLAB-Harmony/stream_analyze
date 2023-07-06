@@ -1,6 +1,6 @@
 package:
   format-version: "1.0.0"
-  name: "replaceme"
+  name: "sa_engine"
   type: "api"
   status: "beta"
   required: false
@@ -9,5 +9,5 @@ package:
   dependencies:
     - name: "csp"
       type: "package"
-      version: "3.14.0"
+      version: "3.17.0"
 

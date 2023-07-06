@@ -1,7 +1,8 @@
 ﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
+![Stream Analyze logo](./config/docs/images/stream_analyze_logo.JPG)
 
-# MPLAB® Harmony 3 replaceme
+# MPLAB® Harmony 3 Stream Analyze
 
 MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded firmware solutions for Microchip 32-bit SAM and PIC® microcontroller and microprocessor devices.  Refer to the following links for more information.
 
@@ -11,30 +12,23 @@ MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded
 - [Microchip MPLAB® Harmony](https://www.microchip.com/mplab/mplab-harmony)
 - [Microchip MPLAB® Harmony Pages](https://microchip-mplab-harmony.github.io/)
 
-This repository contains the MPLAB® Harmony 3 replaceme solutions and example applications. Quickly incorporate connectivity to your designs with replaceme ICs, modules, software and development kits that make connecting effortless for your customers. Our comprehensive replaceme portfolio has the technology to meet your range, data rate, interoperability, frequency and topology needs. Refer to the following links for release notes, training materials, and interface reference information.
+This repository contains Harmony Stream Analyze. Harmony Stream Analyze leverages Stream Analyze's edge analytics capabilities to offer customers a comprehensive ecosystem for building their own edge AI/ML models. Refer to the following links for release notes, training materials, and interface reference information.
 
 - [Release Notes](./release_notes.md)
+- [Stream Analyze License](./Stream_Analyze_Terms_of_Use.pdf)
 - [MPLAB® Harmony License](mplab_harmony_license.md)
-- [MPLAB® Harmony 3 replaceme Wiki](https://github.com/Microchip-MPLAB-Harmony/replaceme/wiki)
-- [MPLAB® Harmony 3 replaceme API Help](https://microchip-mplab-harmony.github.io/replaceme)
+- [MPLAB® Harmony 3 Stream Analyze API Help](./config/docs/SAEngine.md)
+- [Create Your First Harmony 3 Stream Analyze Project](./config/docs/readme.md)
+
 
 # Contents Summary
 
-| Folder     | Description                                               |
-| ---        | ---                                                       |
-| apps        | Example applications for replaceme library components      |
-| config     | replaceme module configuration file                        |
-| docs       | replaceme library help documentation                       |
-| drivers    | Driver/Firmware files for different products              |
+| Folder     | Description                       |
+| ---        | ---                               |
+| config | templates and configuration data      |
+| docs | Stream Analyze Help document            |
+| apps|Example projects for Harmony Stream Analyze |
 
-
-____
-
-[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/replaceme/blob/master/mplab_harmony_license.md)
-[![Latest release](https://img.shields.io/github/release/Microchip-MPLAB-Harmony/replaceme.svg)](https://github.com/Microchip-MPLAB-Harmony/replaceme/releases/latest)
-[![Latest release date](https://img.shields.io/github/release-date/Microchip-MPLAB-Harmony/replaceme.svg)](https://github.com/Microchip-MPLAB-Harmony/replaceme/releases/latest)
-[![Commit activity](https://img.shields.io/github/commit-activity/y/Microchip-MPLAB-Harmony/replaceme.svg)](https://github.com/Microchip-MPLAB-Harmony/replaceme/graphs/commit-activity)
-[![Contributors](https://img.shields.io/github/contributors-anon/Microchip-MPLAB-Harmony/replaceme.svg)]()
 
 ____
 
@@ -43,7 +37,6 @@ ____
 [![Follow us on Facebook](https://img.shields.io/badge/Facebook-Follow%20us%20on%20Facebook-blue.svg)](https://www.facebook.com/microchiptechnology/)
 [![Follow us on Twitter](https://img.shields.io/twitter/follow/MicrochipTech.svg?style=social)](https://twitter.com/MicrochipTech)
 
-[![](https://img.shields.io/github/stars/Microchip-MPLAB-Harmony/replaceme.svg?style=social)]()
-[![](https://img.shields.io/github/watchers/Microchip-MPLAB-Harmony/replaceme.svg?style=social)]()
-
+[![](https://img.shields.io/github/stars/Microchip-MPLAB-Harmony/x2c.svg?style=social)]()
+[![](https://img.shields.io/github/watchers/Microchip-MPLAB-Harmony/x2c.svg?style=social)]()
 
