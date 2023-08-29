@@ -1,0 +1,73 @@
+{
+	"metaDataVersion": "1.0.0",
+	"category": "com.microchip.ide.project",
+	"content": {
+		"metaDataVersion": "1.1.0",
+		"name": "com.microchip.mcu32.mplabx.project.predictive_maintenance_sam_e54_mclv2_sam_e54_pim",
+		"version": "1.0.0",
+		"displayName": "Predictive maintenance project with Harmony Stream Analyze",
+		"projectName": "predictive_maintenance_sam_e54",
+		"shortDescription": "This example project demonstrates predictive maintenance project with Harmony Stream Analyze component for PMSM motor control application",
+		"ide": {
+			"name": "MPLABX",
+			"semverRange": ">=6.10"
+		},
+		"compiler": [
+			"dfp": {
+			"name": "SAME54_DFP",
+			"semverRange": "^3.8.234"
+		},
+		"configurator": {
+			"name": "MCC",
+			"semverRange": ">=5.3.7"
+		},
+		"device": {
+			"metaDataVersion": "1.0.0",
+			"category": "com.microchip.portal.contentRef",
+			"content": {
+				"metaDataVersion": "1.0.0",
+				"category": "com.microchip.device",
+				"name": "ATSAME54P20A",
+				"versionRange": "*"
+			}
+		},
+		"author": "Microchip",
+		"subcategories": [
+			[
+				"Development Kit", "MCLV2 Development Board"
+			],
+			[
+				"Harmony", "Motor Control", "PMSM"
+			],
+			[
+				"Motor Control", "PMSM"
+			]
+		],
+		"peripherals": [
+			"PWM"
+		],
+		"keywords": [
+			"MHC",
+			"Harmony",
+			"Motor Control",
+			"PMSM",
+			"ATSAME54P20A",
+			"SAM D5x/E5x Family",
+			"MCPWM",
+			"PWM",
+			"Motor Control",
+			"Timer"
+		],
+		"additionalData": {
+			"longDescription": {
+				"metaDataVersion": "1.0.0",
+				"category": "com.microchip.portal.fileRef",
+				"content": {
+					"metaDataVersion": "1.0.0",
+					"fileName": "./../../readme.md",
+					"mimeType": "text/markdown"
+				}
+			}
+		}
+	}
+}
