@@ -12,7 +12,7 @@
 
   Description:
     - This file implements functions for open loop start-up
- 
+
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -102,22 +102,22 @@ Private Functions
 *******************************************************************************/
 
 /*******************************************************************************
- * Interface Functions 
+ * Interface Functions
 *******************************************************************************/
 /*! \brief Initialize open loop start-up module
- * 
+ *
  * Details.
  * Initialize open loop start-up module
- * 
- * @param[in]: None 
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
+ * @param[out]: None
  * @return: None
  */
 void  mcSupI_OpenLoopStartupInit( tmcSup_Parameters_s * const pParameters )
-{  
+{
     float32_t temp;
-    
+
     /** Link state variable structure to the module */
     pParameters->pStatePointer = (void *)&mcSup_State_mds;
     tmcSup_State_s * pState =  &mcSup_State_mds;
@@ -239,11 +239,12 @@ tmcTypes_StdReturn_e mcSupI_OpenLoopStartup( const tmcSup_Parameters_s * const p
 
     if( pState->enable )
     {
-         /** Execute open loop start-up */
+        /** Execute open loop start-up */
         switch(pState->StartupState)
         {
             case startupState_Align:
             {
+
                 ++pState->zCounter;
 
                 if( pState->zCounter <= ( pState->alignmentTimeLoopCount >> 1u ) )
@@ -254,26 +255,25 @@ tmcTypes_StdReturn_e mcSupI_OpenLoopStartup( const tmcSup_Parameters_s * const p
                 pState->openLoopAngle = ONE_PI;
                 }
                 else if( pState->zCounter <= pState->alignmentTimeLoopCount )
-                {    
+                {
                 *pIQref = direction * pState->alignmentCurrent;
                 *pIDref = 0.0f;
 
                  pState->openLoopAngle = -direction * ONE_PI_BY_TWO;
                 }
-                else 
+                else
                 {
-                    pState->StartupState = startupState_Ramp; 
-                    
+                    pState->StartupState = startupState_Ramp;
+
                     /** Reset counter */
                     pState->zCounter = 0u;
                 }
-                
+
                 /** Truncate angle from 0 to 2Pi */
                 mcUtils_TruncateAngle0To2Pi(&pState->openLoopAngle);
-                   
+
                 break;
             }
-
             case startupState_Ramp:
             {
                 ++pState->zCounter;
@@ -340,14 +340,14 @@ tmcTypes_StdReturn_e mcSupI_OpenLoopStartup( const tmcSup_Parameters_s * const p
 
 
 /*! \brief Reset Open loop start-up
- * 
+ *
  * Details.
  * Reset Open loop start-up
- * 
- * @param[in]: None 
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
- * @return: 
+ * @param[out]: None
+ * @return:
  */
 void mcSupI_OpenLoopStartupReset( const tmcSup_Parameters_s * const pParameters )
 {

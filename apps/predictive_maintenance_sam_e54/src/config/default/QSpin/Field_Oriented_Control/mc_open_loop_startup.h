@@ -6,7 +6,7 @@
 
   Summary:
     Header file which contains variables and function prototypes for open loop start-up
- 
+
   Description:
     This file contains variables and function prototypes which are generally used for open loop start-up.
 
@@ -41,14 +41,14 @@
 #define MCSUP_H
 
 /*******************************************************************************
- * Header inclusions 
+ * Header inclusions
 *******************************************************************************/
 #include "mc_types.h"
 #include "mc_utilities.h"
 #include "mc_motor.h"
 
 /*******************************************************************************
- Default Module configuration parameters 
+ Default Module configuration parameters
 *******************************************************************************/
 /*******************************************************************************
  Parameters
@@ -82,19 +82,19 @@ __STATIC_INLINE void mcSupI_ParametersSet( tmcSup_Parameters_s * const pParamete
     pParameters->pMotorParameters = &mcMotI_PMSM_gds;
     pParameters->dt = (float32_t)(0.00005);
     pParameters->alignmentTime = (float32_t)(2);
-    pParameters->alignmentCurrent = (float32_t)(0.4);
-    pParameters->openLoopCurrent = (float32_t)(0.4);
+    pParameters->alignmentCurrent = (float32_t)(0.8);
+    pParameters->openLoopCurrent = (float32_t)(0.8);
     pParameters->openLoopRampTime = (float32_t)(5);
     pParameters->openLoopStabTime = (float32_t)(2);
     pParameters->openLoopTransSpeed = (float32_t)(500);
 }
 
 /*******************************************************************************
- * Interface variables 
+ * Interface variables
 *******************************************************************************/
 
 /*******************************************************************************
- Interface Functions 
+ Interface Functions
 *******************************************************************************/
 
 /*! \brief Initialize open loop start-up module

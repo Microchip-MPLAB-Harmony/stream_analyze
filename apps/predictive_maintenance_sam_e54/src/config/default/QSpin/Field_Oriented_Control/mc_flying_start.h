@@ -6,7 +6,7 @@
 
   Summary:
     Header file which contains variables and function prototypes for flying start
- 
+
   Description:
     This file contains variables and function prototypes which are generally used for flying
     start.
@@ -42,7 +42,7 @@
 #define MCFLY_H
 
 /*******************************************************************************
- * Header inclusions 
+ * Header inclusions
 *******************************************************************************/
 #include "mc_types.h"
 #include "mc_hardware_abstraction.h"
@@ -51,69 +51,6 @@
 /*******************************************************************************
  Configuration parameters
 *******************************************************************************/
-/**
- *  Sampling  time in seconds
- */
-#ifdef CONFIG_SamplingTimeInSec
-#undef CONFIG_SamplingTimeInSec
-#endif
-#define CONFIG_SamplingTimeInSec        (float32_t)( 50e-6 )
-
-/**
- *  Flying start  time in seconds
- */
-#ifdef CONFIG_DetectTimeInSec
-#undef CONFIG_DetectTimeInSec
-#endif
-#define CONFIG_DetectTimeInSec        (float32_t)( 0.15f )
-
-/**
- *  Flying start minimum speed in RPM
- */
-#ifdef CONFIG_MinimumSpeedInRpm
-#undef CONFIG_MinimumSpeedInRpm
-#endif
-#define CONFIG_MinimumSpeedInRpm   (float32_t)( 300.0f )
-
-/**
- *  Fadeout time in seconds
- */
-#ifdef CONFIG_FadeOutTimeInSec
-#undef CONFIG_FadeOutTimeInSec
-#endif
-#define CONFIG_FadeOutTimeInSec  (float32_t)( 2.0f )
-
-/**
- *  Fadeout time in seconds
- */
-#ifdef CONFIG_FadeOutBurstTimeInSec
-#undef CONFIG_FadeOutBurstTimeInSec
-#endif
-#define CONFIG_FadeOutBurstTimeInSec  (float32_t)( 0.02f )
-
-/**
- *  Flying start current
- */
-#ifdef CONFIG_StartCurrentInAmps
-#undef CONFIG_StartCurrentInAmps
-#endif
-#define CONFIG_StartCurrentInAmps   (float32_t)( 0.4 )
-
-/**
- *  Regenerative braking current
- */
-#ifdef CONFIG_BrakeCurrentInAmps
-#undef CONFIG_BrakeCurrentInAmps
-#endif
-#define CONFIG_BrakeCurrentInAmps   (float32_t)( 0.4 )
-
-/**
- * Regenerative braking current ramp rate in Amperes per second
- */
-#ifdef CONFIG_BrakeCurrentRateInAmpsPerSec
-#undef CONFIG_BrakeCurrentRateInAmpsPerSec
-#endif
-#define CONFIG_BrakeCurrentRateInAmpsPerSec  (float32_t)(0.1 )
 
 /*******************************************************************************
 Type Definition
@@ -123,9 +60,6 @@ typedef struct
     float32_t dt;
     float32_t detectTime;
     float32_t minRpmForFlyingStart;
-    float32_t flyingStartCurrentInAmps;
-    float32_t brakeCurrenInAmps;
-    float32_t brakeCurrentStepInAmps;
     float32_t fadeOutTime;
     float32_t fadeOutBurstTime;
     uint16_t pwmPeriodCount;
@@ -133,7 +67,7 @@ typedef struct
 }tmcFly_Parameters_s;
 
 /*******************************************************************************
- * Interface variables 
+ * Interface variables
 *******************************************************************************/
 
 /*******************************************************************************
@@ -151,19 +85,18 @@ typedef struct
  */
 __STATIC_INLINE void mcFlyI_ParametersSet( tmcFly_Parameters_s * const pParameter )
 {
-    pParameter->dt = (float32_t)(0.00005);;
-    pParameter->detectTime = CONFIG_DetectTimeInSec;
-    pParameter->minRpmForFlyingStart = CONFIG_MinimumSpeedInRpm;
-    pParameter->flyingStartCurrentInAmps = CONFIG_StartCurrentInAmps;
-    pParameter->brakeCurrenInAmps = CONFIG_BrakeCurrentInAmps;
-    pParameter->brakeCurrentStepInAmps = CONFIG_BrakeCurrentRateInAmpsPerSec;
-    pParameter->fadeOutTime = CONFIG_FadeOutTimeInSec;
-    pParameter->fadeOutBurstTime = CONFIG_FadeOutBurstTimeInSec;
+    pParameter->dt = (float32_t)(0.00005);
+    pParameter->detectTime = (float32_t)(2);
+    pParameter->minRpmForFlyingStart = (float32_t)(500);
+
+    pParameter->fadeOutTime = (float32_t)(2);
+    pParameter->fadeOutBurstTime = (float32_t)(0.02);
     pParameter->pwmPeriodCount = (uint16_t)mcHalI_PwmPeriodGet();
+
 }
 
 /*******************************************************************************
- Interface Functions 
+ Interface Functions
 *******************************************************************************/
 /*! \brief Initialize flying Start module
  *

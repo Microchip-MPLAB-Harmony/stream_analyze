@@ -52,6 +52,16 @@
  /*******************************************************************************
  Data-types
  *******************************************************************************/
+
+/* MISRA C-2012 1.1 deviated below. Deviation record ID - H3_MISRAC_2012_R_1_1_DR_1 */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunknown-pragmas"
+#pragma coverity compliance block deviate:2 "MISRA C-2012 Rule 1.1" "H3_MISRAC_2012_R_1_1_DR_1"
+
 typedef float float32_t;
+
+#pragma coverity compliance end_block "MISRA C-2012 Rule 1.1"
+#pragma GCC diagnostic pop
+/* MISRAC 2012 deviation block end */
 
 #endif

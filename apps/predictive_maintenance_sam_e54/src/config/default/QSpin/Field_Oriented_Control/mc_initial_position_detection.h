@@ -23,9 +23,7 @@ extern "C" {
 /*******************************************************************************
  Macros
  *******************************************************************************/
- #define IPD_ALGORITHM_KEY     "CORTEX_M4_IPD_ALGORITHM_KEY"
- extern  uint32_t deviceSignature[4];
- 
+
 /*******************************************************************************
  User defined data-types
  *******************************************************************************/
@@ -84,7 +82,7 @@ __STATIC_INLINE void mcIpdI_InputPortsRead( tmcIpd_Input_s * const pInput )
      pInput->iA = mcCurI_ModuleData_gds.dOutput.iABC.a;
      pInput->iB = mcCurI_ModuleData_gds.dOutput.iABC.b;
      pInput->iC = mcCurI_ModuleData_gds.dOutput.iABC.c;
-     
+
      pInput->uBus = mcVolI_ModuleData_gds.dOutput.uBus;
 }
 

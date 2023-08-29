@@ -327,28 +327,28 @@ void mcHalI_InverterPwmDisable( void );
 
 
         /*! \brief Set fault indicator
-		 * 
-		 * Details.
-		 * Set fault indicator
-		 * 
-		 * @param[in]: 
-		 * @param[in/out]:
-		 * @param[out]:
-		 * @return:
-		 */
+         * 
+         * Details.
+         * Set fault indicator
+         * 
+         * @param[in]: 
+         * @param[in/out]:
+         * @param[out]:
+         * @return:
+         */
         void mcHal_FaultIndicationSet( void );
         
        
-		 /*! \brief Set direction indicator
-		 * 
-		 * Details.
-		 * Set direction indicator
-		 * 
-		 * @param[in]: 
-		 * @param[in/out]:
-		 * @param[out]:
-		 * @return:
-		 */
+         /*! \brief Set direction indicator
+         * 
+         * Details.
+         * Set direction indicator
+         * 
+         * @param[in]: 
+         * @param[in/out]:
+         * @param[out]:
+         * @return:
+         */
          void mcHal_DirectionIndication( void );
          
        

@@ -12,7 +12,7 @@
 
   Description:
     - This file implements functions for flux control
- 
+
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -83,20 +83,20 @@ Private Functions
 *******************************************************************************/
 
 /*******************************************************************************
- * Interface Functions 
+ * Interface Functions
 *******************************************************************************/
 /*! \brief Initialize flux control module
- * 
+ *
  * Details.
  * Initialize flux control module
- * 
- * @param[in]: None 
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
+ * @param[out]: None
  * @return: None
  */
 void  mcFlxI_FluxControlInit( tmcFlx_Parameters_s * const pParameters )
-{  
+{
     /** Link state variable structure to the module */
     pParameters->pStatePointer = (void *)&mcFlx_State_mds;
 

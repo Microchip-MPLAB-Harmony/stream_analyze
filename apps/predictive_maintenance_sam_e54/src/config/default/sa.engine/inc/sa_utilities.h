@@ -51,13 +51,31 @@
  #include "sa_types.h"
  #include "sa_nanocore_coro.h"
 
+/*******************************************************************************
+ Pre-processor macros
+ *******************************************************************************/
+ #define NUMBER_OF_SIGNALS  2u
+ #define BUFFER_SIZE 800u
+
  /*******************************************************************************
  Data-types
  *******************************************************************************/
+ typedef struct
+ {
+      int16_t sensorType;
+      volatile float * source;
+ }tSAEngine_Signal_s;
+
+ typedef struct
+ {
+      bool initDone;
+      tSAEngine_Signal_s signals[NUMBER_OF_SIGNALS] ;
+ }tSAEngine_State_s;
 
  /*******************************************************************************
  Interface variables
  *******************************************************************************/
+ extern  tSAEngine_State_s SAEngine_Global_gds;
 
  /*******************************************************************************
  Public Functions
@@ -109,7 +127,7 @@ sa_task_state SAEngine_RegisteredTasksRun( void );
  * @param[out]:
  * @return:
  */
-bool SAEngine_SignalInitialize( int16_t identifier, volatile float32_t * const source );
+bool SAEngine_SignalInitialize( uint16_t identifier, volatile float32_t * const source );
 
 /*! \brief API to read sensor signals
  *
@@ -121,7 +139,7 @@ bool SAEngine_SignalInitialize( int16_t identifier, volatile float32_t * const s
  * @param[out]:
  * @return:
  */
-float SAEngine_SensorSampleGet( int16_t identifier );
+float SAEngine_SensorSampleGet( uint16_t identifier );
 
 /*! \brief Return timer counter
  *
@@ -145,7 +163,7 @@ uint32_t SAEngine_TrackTimerCountGet (void );
  * @param[out]:
  * @return:
  */
-int16_t SAEngine_SerialBufferWrite(int16_t index, uint8_t * const buffer, size_t len);
+size_t SAEngine_SerialBufferWrite(int16_t index, uint8_t * const buffer, size_t len);
 
 /*! \brief Communication port callback fucntion
  *

@@ -273,8 +273,6 @@ void mcAppI_AdcCalibrationIsr(ADC_STATUS status, uintptr_t context)
         /** For MISRA Compliance */
     }
 
-    /** Calibration and monitoring update */
-//    X2CScope_Update();
 
      /** ADC end of conversion interrupt generation for FOC control */
     mcHalI_AdcInterruptClear();
@@ -333,8 +331,6 @@ void mcAppI_AdcFinishedIsr(ADC_STATUS status, uintptr_t context )
     /** Re-enable hardware trigger for ADC channels */ 
     mcHalI_AdcHardwareTriggerRenable();
 
-    /** Calibration and monitoring update */
-   // X2CScope_Update();
 
     /** Increment interrupt counter */
     mcAppI_1msSyncCounter_gdu32++;

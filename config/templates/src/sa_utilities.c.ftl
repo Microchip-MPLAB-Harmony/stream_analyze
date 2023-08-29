@@ -12,7 +12,7 @@
 
   Description:
     This file contains the data structures and function prototypes of SA Engine utilities
-    
+
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -48,29 +48,19 @@
 /*******************************************************************************
  Pre-processor macros
  *******************************************************************************/
- #define NUMBER_OF_SIGNALS  2u
- #define BUFFER_SIZE ${SA_ENGINE_BUFFER_SIZE}u
 
 /*******************************************************************************
  Data-types
  *******************************************************************************/
 
- typedef struct
- {
-     int16_t sensorType;
-     volatile float * source;
- }tSAEngine_Signal_s;
-
-  typedef struct
- {
-     bool initDone;
-     tSAEngine_Signal_s signals[NUMBER_OF_SIGNALS] ;
- }tSAEngine_State_s;
+ /*******************************************************************************
+ Private Variables
+ *******************************************************************************/
+ static char rxBuffer[BUFFER_SIZE];
 
  /*******************************************************************************
  Global Variables
  *******************************************************************************/
- char rxBuffer[BUFFER_SIZE];
  tSAEngine_State_s SAEngine_Global_gds;
 
 /*******************************************************************************
@@ -106,20 +96,48 @@ void SAEngine_Initialize( void )
     ${SA_ENGINE_TIMER_USED}_TimerStart();
 </#if>
 
+    /* MISRA C-2012 11.6 deviated below. Deviation record ID - H3_MISRAC_2012_R_11_6_DR_1 */
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wunknown-pragmas"
+    #pragma coverity compliance block deviate:2 "MISRA C-2012 Rule 11.6" "H3_MISRAC_2012_R_11_6_DR_1"
+
     /** SysTick needed for communication and long jump */
     SYSTICK_TimerCallbackSet(&SAEngine_TimeoutHandlerTick, (uintptr_t) NULL);
+
+    #pragma coverity compliance end_block "MISRA C-2012 Rule 11.6"
+    #pragma GCC diagnostic pop
+    /* MISRAC 2012 deviation block end */
+
     SYSTICK_TimerStart();
+
+    /* MISRA C-2012 11.6 deviated below. Deviation record ID - H3_MISRAC_2012_R_11_6_DR_1 */
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wunknown-pragmas"
+    #pragma coverity compliance block deviate:2 "MISRA C-2012 Rule 11.6" "H3_MISRAC_2012_R_11_6_DR_1"
 
     /** Register a callback for read events */
     ${SA_ENGINE_PERIPH_USED}_ReadCallbackRegister(SAEngine_UartReadEventHandler, (uintptr_t) NULL);
 
+    #pragma coverity compliance end_block "MISRA C-2012 Rule 11.6"
+    #pragma GCC diagnostic pop
+    /* MISRAC 2012 deviation block end */
+
     /** Set USART read threshold */
     ${SA_ENGINE_PERIPH_USED}_ReadThresholdSet(1);
 
-     /* Enable RX event notifications */
-    ${SA_ENGINE_PERIPH_USED}_ReadNotificationEnable(true, false);
+    /* Enable RX event notifications */
+    bool status;
 
-    SAEngine_Global_gds.initDone = true;
+    status = ${SA_ENGINE_PERIPH_USED}_ReadNotificationEnable(true, false);
+
+    if(true == status )
+    {
+       SAEngine_Global_gds.initDone = true;
+    }
+    else
+    {
+       SAEngine_Global_gds.initDone = false;
+    }
 }
 
 
@@ -136,7 +154,7 @@ void SAEngine_Initialize( void )
 int16_t SAEngine_TaskStatusEvaluate( void )
 {
     /** Run sa.engine nanocore evaluation loop */
-    return SAEngine_NanocoreInitEvalLoop();
+    return (int16_t)SAEngine_NanocoreInitEvalLoop();
 }
 
 /*! \brief Run sa.engine tasks
@@ -166,7 +184,7 @@ sa_task_state SAEngine_RegisteredTasksRun( void )
  * @param[out]:
  * @return:
  */
-bool SAEngine_SignalInitialize( int16_t identifier, volatile float32_t * const source )
+bool SAEngine_SignalInitialize( uint16_t identifier, volatile float32_t * const source )
 {
     bool initStatus = false;
     if( identifier < NUMBER_OF_SIGNALS )
@@ -187,7 +205,7 @@ bool SAEngine_SignalInitialize( int16_t identifier, volatile float32_t * const s
  * @param[out]:
  * @return:
  */
-float SAEngine_SensorSampleGet( int16_t identifier )
+float SAEngine_SensorSampleGet( uint16_t identifier )
 {
     float result = 0.0f;
 
@@ -233,7 +251,7 @@ uint32_t SAEngine_TrackTimerCountGet (void )
  * @param[out]:
  * @return:
  */
-int16_t SAEngine_SerialBufferWrite(int16_t index, uint8_t * const buffer, size_t len)
+size_t SAEngine_SerialBufferWrite(int16_t index, uint8_t * const buffer, size_t len)
 {
 <#if true == SA_ENGINE_DMA_CHANNEL_TX_EN>
     bool flag = false;
@@ -241,7 +259,16 @@ int16_t SAEngine_SerialBufferWrite(int16_t index, uint8_t * const buffer, size_t
     {
         while (!flag)
         {
+            /* MISRA C-2012 11.8 deviated below. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+            #pragma GCC diagnostic push
+            #pragma GCC diagnostic ignored "-Wunknown-pragmas"
+            #pragma coverity compliance block deviate:2 "MISRA C-2012 Rule 11.8" "H3_MISRAC_2012_R_11_8_DR_1"
+
             flag = DMAC_ChannelTransfer(DMAC_CHANNEL_${SA_ENGINE_DMA_CHANNEL_TX}, buffer, (const void *)&(SERCOM2_REGS->USART_INT.SERCOM_DATA), len );
+
+            #pragma coverity compliance end_block "MISRA C-2012 Rule 11.8"
+            #pragma GCC diagnostic pop
+            /* MISRAC 2012 deviation block end */
         }
         return len;
     }
@@ -264,15 +291,24 @@ int16_t SAEngine_SerialBufferWrite(int16_t index, uint8_t * const buffer, size_t
  */
 void SAEngine_UartReadEventHandler(SERCOM_USART_EVENT event, uintptr_t context )
 {
-   if (event == SERCOM_USART_EVENT_READ_THRESHOLD_REACHED)
+    if (event == SERCOM_USART_EVENT_READ_THRESHOLD_REACHED)
     {
-         /** Receiver should atleast have the threshold number of bytes in the ring buffer */
-         uint32_t nBytesAvailable = ${SA_ENGINE_PERIPH_USED}_ReadCountGet();
+        /** Receiver should atleast have the threshold number of bytes in the ring buffer */
+        size_t nBytesAvailable = ${SA_ENGINE_PERIPH_USED}_ReadCountGet();
 
-         /** Read USART ring buffer into rxBuffer */
-         ${SA_ENGINE_PERIPH_USED}_Read((uint8_t*)&rxBuffer[0], nBytesAvailable);
+        /* MISRA C-2012 17.7 deviated below. Deviation record ID - H3_MISRAC_2012_R_17_7_DR_1 */
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wunknown-pragmas"
+        #pragma coverity compliance block deviate:2 "MISRA C-2012 Rule 17.7" "H3_MISRAC_2012_R_17_7_DR_1"
+        /** Read USART ring buffer into rxBuffer */
 
-         /** Read serial buffer */
-         SAEngine_SerialBufferRead(&rxBuffer[0], nBytesAvailable);
+        ${SA_ENGINE_PERIPH_USED}_Read((uint8_t*)&rxBuffer[0], nBytesAvailable);
+
+        #pragma coverity compliance end_block "MISRA C-2012 Rule 17.7"
+        #pragma GCC diagnostic pop
+        /* MISRAC 2012 deviation block end */
+
+        /** Read serial buffer */
+        SAEngine_SerialBufferRead(&rxBuffer[0], (int32_t)nBytesAvailable);
     }
 }

@@ -12,7 +12,7 @@
 
   Description:
     This file contains implementation of the hardware abstraction
- 
+
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -64,12 +64,12 @@ int16_t mcPwmI_Duty_gau16[3u];
  * Interface Functions
 *******************************************************************************/
 
-/*! \brief Enable PWM inverter 
- * 
+/*! \brief Enable PWM inverter
+ *
  * Details.
  * Enable PWM inverter
- * 
- * @param[in]: 
+ *
+ * @param[in]:
  * @param[in/out]:
  * @param[out]:
  * @return:
@@ -84,12 +84,12 @@ void mcHalI_InverterPwmEnable( void )
     TCC0_REGS->TCC_PATT = 0x0000;
 }
 
-/*! \brief Disable PWM inverter 
- * 
+/*! \brief Disable PWM inverter
+ *
  * Details.
  * Disable PWM inverter
- * 
- * @param[in]: 
+ *
+ * @param[in]:
  * @param[in/out]:
  * @param[out]:
  * @return:
@@ -107,11 +107,11 @@ void mcHalI_InverterPwmDisable( void )
 
 
 /*! \brief Set direction indicator
- * 
+ *
  * Details.
  * Set direction indicator
- * 
- * @param[in]: 
+ *
+ * @param[in]:
  * @param[in/out]:
  * @param[out]:
  * @return:
@@ -122,11 +122,11 @@ void mcHal_DirectionIndication( void )
 }
 
 /*! \brief Set fault indicator
- * 
+ *
  * Details.
  * Set fault indicator
- * 
- * @param[in]: 
+ *
+ * @param[in]:
  * @param[in/out]:
  * @param[out]:
  * @return:
@@ -137,11 +137,11 @@ void mcHal_FaultIndicationSet( void )
 }
 
 /*! \brief ADC Enable
- * 
+ *
  * Details.
  * ADC Enable
- * 
- * @param[in]: 
+ *
+ * @param[in]:
  * @param[in/out]:
  * @param[out]:
  * @return:
@@ -163,30 +163,30 @@ void mcHalI_AdcEnable( void )
  */
 void mcHalI_PwmInterruptEnable( void )
 {
-    NVIC_EnableIRQ(TCC0_OTHER_IRQn);  
+    NVIC_EnableIRQ(TCC0_OTHER_IRQn);
 }
 
 /*! \brief PWM timer Start
- * 
+ *
  * Details.
  * PWM timer Start
- * 
- * @param[in]: 
+ *
+ * @param[in]:
  * @param[in/out]:
  * @param[out]:
  * @return:
  */
 void mcHalI_PwmTimerStart( void )
 {
-    TCC0_PWMStart( );  
+    TCC0_PWMStart( );
 }
 
 /*! \brief ADC callback function
- * 
+ *
  * Details.
  * ADC callback function
- * 
- * @param[in]: 
+ *
+ * @param[in]:
  * @param[in/out]:
  * @param[out]:
  * @return:
@@ -198,11 +198,11 @@ void mcHalI_AdcCallBackRegister( ADC_CALLBACK callback, uintptr_t context )
 }
 
 /*! \brief PWM fault callback function
- * 
+ *
  * Details.
  * PWM fault callback function
- * 
- * @param[in]: 
+ *
+ * @param[in]:
  * @param[in/out]:
  * @param[out]:
  * @return:

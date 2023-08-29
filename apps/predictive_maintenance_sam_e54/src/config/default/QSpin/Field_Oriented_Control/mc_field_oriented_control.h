@@ -6,7 +6,7 @@
 
   Summary:
     Header file which contains variables and function prototypes for Field Oriented Control ( FOC )
- 
+
   Description:
     This file contains variables and function prototypes which are generally used for Field Oriented
     Control ( FOC ).
@@ -42,7 +42,7 @@
 #define MCFOC_H
 
 /*******************************************************************************
- * Header inclusions 
+ * Header inclusions
 *******************************************************************************/
 #include "mc_types.h"
 #include "mc_pwm.h"
@@ -58,7 +58,7 @@
 #include "mc_voltage_measurement.h"
 
 /*******************************************************************************
- Default Module configuration parameters 
+ Default Module configuration parameters
 *******************************************************************************/
 
 /*******************************************************************************
@@ -96,7 +96,7 @@ typedef struct
 }tmcFocI_ModuleData_s;
 
 /*******************************************************************************
- * Interface variables 
+ * Interface variables
 *******************************************************************************/
 extern tmcFocI_ModuleData_s mcFocI_ModuleData_gds;
 
@@ -162,7 +162,7 @@ __STATIC_INLINE void mcFocI_OutputPortWrite( tmcFoc_Output_s * const pOutput )
 }
 
 /*******************************************************************************
- Interface Functions 
+ Interface Functions
 *******************************************************************************/
 /*! \brief Initialize Field Oriented Control ( FOC ) module
  *

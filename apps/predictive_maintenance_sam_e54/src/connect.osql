@@ -1,5 +1,5 @@
 lisp;
-(trace-serial t)
+'(trace-serial t)
 
 
 (defun sensor-stream-+ (FNO sensorvector R)  

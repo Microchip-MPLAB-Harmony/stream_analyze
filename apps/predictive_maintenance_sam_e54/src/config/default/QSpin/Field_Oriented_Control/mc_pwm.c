@@ -1,5 +1,5 @@
 /*******************************************************************************
- Pulse width modulation function 
+ Pulse width modulation function
 
   Company:
     Microchip Technology Inc.
@@ -12,7 +12,7 @@
 
   Description:
     This file implements functions for pulse width modulation .
- 
+
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -97,20 +97,20 @@ __STATIC_INLINE int16_t mcPwm_IntegerScale( const float32_t factor, int16_t inpu
     return (int16_t)result;
 }
 /*******************************************************************************
- * Interface Functions 
+ * Interface Functions
 *******************************************************************************/
 /*! \brief Initialize PWM modulator
- * 
+ *
  * Details.
- * Initialize PWM Modulator 
- * 
- * @param[in]: None 
+ * Initialize PWM Modulator
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
+ * @param[out]: None
  * @return: None
  */
 void  mcPwmI_PulseWidthModulationInit( tmcPwm_Parameters_s * const pParameters )
-{  
+{
     float32_t allowedRange;
 
     /** Link state variable structure to the module */
@@ -381,14 +381,14 @@ void mcPwmI_PulseWidthModulation( const tmcPwm_Parameters_s * const pParameters,
 }
 
 /*! \brief Reset PWM Modulator
- * 
+ *
  * Details.
- * Reset PWM Modulator 
- * 
- * @param[in]: None 
+ * Reset PWM Modulator
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
- * @return: 
+ * @param[out]: None
+ * @return:
  */
 void mcPwmI_PulseWidthModulationReset( const tmcPwm_Parameters_s * const pParameters )
 {

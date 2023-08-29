@@ -12,7 +12,7 @@
 
   Description:
     - This file implements functions for reference control
- 
+
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -79,21 +79,21 @@ Private Functions
 *******************************************************************************/
 
 /*******************************************************************************
- * Interface Functions 
+ * Interface Functions
 *******************************************************************************/
 
 /*! \brief Initialize reference control module
- * 
+ *
  * Details.
  * Initialize reference control module
- * 
- * @param[in]: None 
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
+ * @param[out]: None
  * @return: None
  */
 void  mcRefI_ReferenceControlInit( tmcRef_Parameters_s * const pParameters )
-{  
+{
     /** Link state variable structure to the module */
     pParameters->pStatePointer = (void *)&mcRef_State_mds;
 
@@ -202,7 +202,7 @@ void mcRefI_ReferenceControl(  tmcRef_Parameters_s * const pParameters,
          {
              *pOut = command;
          }
-     
+
      }
      else
      {
@@ -212,14 +212,14 @@ void mcRefI_ReferenceControl(  tmcRef_Parameters_s * const pParameters,
 
 
 /*! \brief Reset Reference control
- * 
+ *
  * Details.
  * Reset Reference control
- * 
- * @param[in]: None 
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
- * @return: 
+ * @param[out]: None
+ * @return:
  */
 void mcRefI_ReferenceControlReset( tmcRef_Parameters_s * const pParameters )
 {

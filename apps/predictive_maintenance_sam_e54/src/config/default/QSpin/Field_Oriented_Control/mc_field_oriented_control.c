@@ -12,7 +12,7 @@
 
   Description:
     - This file implements functions for Field Oriented Control ( FOC )
- 
+
  *******************************************************************************/
 
 // DOM-IGNORE-BEGIN
@@ -92,6 +92,7 @@ Private variables
 static tmcFoc_State_s mcFoc_State_mds;
 
 
+
 /*******************************************************************************
 Interface  variables
 *******************************************************************************/
@@ -106,7 +107,7 @@ Macro Functions
 #define TWO_BY_PI (float32_t)(0.6366198)
 
 /**
- *  Open loop angle to close loop angle transition rate. 
+ *  Open loop angle to close loop angle transition rate.
  */
 #define ROTOR_ANGLE_RAMP_RATE     (float32_t)( 1.0e-5 )
 
@@ -167,20 +168,20 @@ __STATIC_FORCEINLINE void mcFoc_InverseParkTransformation( const tmcTypes_DQ_s *
 }
 
 /*******************************************************************************
- * Interface Functions 
+ * Interface Functions
 *******************************************************************************/
 /*! \brief Initialize Field Oriented Control ( FOC ) module
- * 
+ *
  * Details.
  * Initialize Field Oriented Control ( FOC ) module
- * 
- * @param[in]: None 
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
+ * @param[out]: None
  * @return: None
  */
 void  mcFocI_FieldOrientedControlInit( tmcFocI_ModuleData_s * const pModule )
-{  
+{
     /** Link state variable structure to the module */
     pModule->pStatePointer = (void *)&mcFoc_State_mds;
 
@@ -207,7 +208,7 @@ void  mcFocI_FieldOrientedControlInit( tmcFocI_ModuleData_s * const pModule )
 
     /** Initialize flux control module */
     mcFlxI_FluxControlInit( &mcFoc_State_mds.bFluxController);
-    
+
 
 
     /** Initialize rotor position estimation  */
@@ -262,9 +263,9 @@ void  mcFocI_FieldOrientedControlEnable( tmcFocI_ModuleData_s * const pParameter
 
     /** Enable flux control module */
     mcFlxI_FluxControlEnable( &mcFoc_State_mds.bFluxController);
-    
 
-   
+
+
     /** Enable rotor position estimation  */
     mcRpeI_RotorPositionEstimEnable( &mcFoc_State_mds.bPositionEstimation);
 
@@ -304,10 +305,10 @@ void  mcFocI_FieldOrientedControlDisable( tmcFocI_ModuleData_s * const pParamete
         /** For MISRA Compliance */
     }
 
- 
+
     /** Disable open loop start-up module */
     mcSupI_OpenLoopStartupDisable( &mcFoc_State_mds.bOpenLoopStartup );
- 
+
     /** Disable reference control module */
     mcRefI_ReferenceControlDisable( &mcFoc_State_mds.bReferenceController);
 
@@ -377,7 +378,7 @@ void mcFocI_FieldOrientedControlFast( tmcFocI_ModuleData_s * const pModule )
         {
             tmcTypes_StdReturn_e startupStatus;
             startupStatus = mcSupI_OpenLoopStartup( &pState->bOpenLoopStartup, pState->commandDirection, &pState->iQref,
-                                                                            &pState->iDref, &pState->openLoopAngle, &pState->openLoopSpeed );
+                                                    &pState->iDref, &pState->openLoopAngle, &pState->openLoopSpeed );
 
             pState->nRef = pState->openLoopSpeed;
 
@@ -388,30 +389,30 @@ void mcFocI_FieldOrientedControlFast( tmcFocI_ModuleData_s * const pModule )
 
                 /** Calculate angle difference */
                 pState->angleDifference = UTIL_AngleDifferenceCalc( pState->openLoopAngle, pOutput->elecAngle );
-       
+
                 /** Set FOC state machine to ClosingLoop */
                 pState->FocState = FocState_ClosingLoop;
             }
 
                 /** Sine-cosine calculation */
                 mcUtils_SineCosineCalculation( pState->openLoopAngle, &sine, &cosine );
-                
+
                 break;
             }
 	        case FocState_ClosingLoop:
             {
                 float32_t angle = pOutput->elecAngle + pState->angleDifference;
                 mcUtils_TruncateAngle0To2Pi(&angle);
-                
+
                 /** Ramp-down angle difference */
                 UTIL_LinearRampFloat(&pState->angleDifference, ROTOR_ANGLE_RAMP_RATE, 0.0f );
-                
+
                 if( UTIL_IS_ZERO( pState->angleDifference ))
                 {
                     pState->angleDifference = 0.0f;
                     pState->FocState = FocState_CloseLoop;
                 }
-                
+
                 /** Sine-cosine calculation */
                 mcUtils_SineCosineCalculation( angle, &sine, &cosine );
                 /** Reference Control */
@@ -419,11 +420,11 @@ void mcFocI_FieldOrientedControlFast( tmcFocI_ModuleData_s * const pModule )
 
                 /** Execute speed controller */
                 pState->nRef *=  pState->commandDirection;
-                mcSpeI_SpeedControlAuto( &pState->bSpeedController, pState->nRef, pOutput->elecSpeed, 
+                mcSpeI_SpeedControlAuto( &pState->bSpeedController, pState->nRef, pOutput->elecSpeed,
                                                            &pState->iQref );
 
                 break;
-            }  
+            }
 
             case FocState_CloseLoop:
             {
@@ -435,7 +436,7 @@ void mcFocI_FieldOrientedControlFast( tmcFocI_ModuleData_s * const pModule )
 
                 /** Execute speed controller */
                 pState->nRef *=  pState->commandDirection;
-                mcSpeI_SpeedControlAuto(&pState->bSpeedController,  pState->nRef, pOutput->elecSpeed, 
+                mcSpeI_SpeedControlAuto(&pState->bSpeedController,  pState->nRef, pOutput->elecSpeed,
                                                           &pState->iQref );
 
                 break;
@@ -508,14 +509,14 @@ void mcFocI_MotorDirectionChange(const tmcFocI_ModuleData_s * const pParameters)
 
 }
 /*! \brief Reset Field Oriented Control ( FOC )
- * 
+ *
  * Details.
  * Reset Field Oriented Control ( FOC )
- * 
- * @param[in]: None 
+ *
+ * @param[in]: None
  * @param[in/out]: None
- * @param[out]: None 
- * @return: 
+ * @param[out]: None
+ * @return:
  */
 void mcFocI_FieldOrientedControlReset( const tmcFocI_ModuleData_s * const pParameters )
 {
@@ -530,7 +531,7 @@ void mcFocI_FieldOrientedControlReset( const tmcFocI_ModuleData_s * const pParam
 
     /** Reset flux control module */
     mcFlxI_FluxControlReset( &mcFoc_State_mds.bFluxController);
-    
+
    /** Reset rotor position estimation  */
     mcRpeI_RotorPositionEstimReset( &mcFoc_State_mds.bPositionEstimation);
 
